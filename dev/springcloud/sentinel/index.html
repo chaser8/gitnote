@@ -6,4 +6,44 @@
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;groupId&gt;com.alibaba.csp&lt;/groupId&gt;
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;artifactId&gt;sentinel-datasource-nacos&lt;/artifactId&gt;
 &nbsp; &nbsp; &nbsp; &nbsp; &lt;/dependency&gt;
-</pre><h2>2.程序配置</h2><h2>3.控制台启动</h2><h2>4.feign配置</h2><h2>5.feign熔断配置</h2><h2><br></h2><p><br></p>
+</pre><h2>2.程序配置</h2><pre class="ql-syntax" spellcheck="false">spring:
+&nbsp; cloud:
+&nbsp; &nbsp; sentinel:
+&nbsp; &nbsp; &nbsp; datasource:
+&nbsp; &nbsp; &nbsp; &nbsp; degrade:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; nacos:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; namespace: ${nacos-namespace}
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; server-addr: ${nacos-addr}
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; data-id: sentinel.json
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; rule-type: degrade
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; group-id: example
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; flow:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; nacos:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; namespace: ${nacos-namespace}
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; server-addr: ${nacos-addr}
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; data-id: flow.json
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; rule-type: flow
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; group-id: example
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; system:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; nacos:
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; namespace: ${nacos-namespace}
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; server-addr: ${nacos-addr}
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; data-id: system.json
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; rule-type: system
+&nbsp; &nbsp; &nbsp; transport:
+&nbsp; &nbsp; &nbsp; &nbsp; dashboard: localhost:7021
+&nbsp; &nbsp; &nbsp; enabled: true
+
+</pre><h2>3.控制台启动</h2><pre class="ql-syntax" spellcheck="false">java -Dserver.port=7021 -Dproject.name=sentinel-dashboard -jar sentinel-dashboard.jar
+</pre><h2>4.feign配置</h2><pre class="ql-syntax" spellcheck="false">feign:
+&nbsp; sentinel:
+&nbsp; &nbsp; enabled: true
+</pre><h2>5.feign熔断配置</h2><pre class="ql-syntax" spellcheck="false">feign:
+&nbsp; sentinel:
+&nbsp; &nbsp; enabled: true
+&nbsp; client:
+&nbsp; &nbsp; config:
+&nbsp; &nbsp; &nbsp; default:
+&nbsp; &nbsp; &nbsp; &nbsp; connectTimeout: 1000 #连接超时
+&nbsp; &nbsp; &nbsp; &nbsp; readTimeout: 60000 #读取数据超时
+</pre><h2><br></h2><p><br></p>
