@@ -18,13 +18,13 @@
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; rule-type: flow	
 &nbsp; &nbsp; &nbsp; &nbsp; degrade:	
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; nacos:	
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; server-addr: localhost:8848	
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; server-addr: ${nacos-namespace}
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dataId: ${spring.application.name}-degrade-rules	
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; groupId: SENTINEL_GROUP	
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; rule-type: degrade	
 &nbsp; &nbsp; &nbsp; &nbsp; system:	
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; nacos:	
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; server-addr: localhost:8848	
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; server-addr: ${nacos-namespace}
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dataId: ${spring.application.name}-system-rules	
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; groupId: SENTINEL_GROUP	
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; rule-type: system	
@@ -40,5 +40,4 @@
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dataId: ${spring.application.name}-param-flow-rules	
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; groupId: SENTINEL_GROUP	
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; rule-type: param-flow
-
 </pre><p><br></p>
