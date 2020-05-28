@@ -3,41 +3,46 @@
     &lt;artifactId&gt;spring-cloud-starter-alibaba-sentinel&lt;/artifactId&gt;
     &lt;version&gt;1.3.2-HW-SNAPSHOT&lt;/version&gt;
 &lt;/dependency&gt;
-</pre><h2>2.yaml配置</h2><p>nacos添加如下通用配置</p><pre class="ql-syntax" spellcheck="false">spring:	
-&nbsp; cloud:	
-&nbsp; &nbsp; sentinel:	
-&nbsp; &nbsp; &nbsp; datasource:	
-&nbsp; &nbsp; &nbsp; &nbsp; # 名称随意	
-&nbsp; &nbsp; &nbsp; &nbsp; flow:	
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; nacos:	
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; server-addr: localhost:8848	
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dataId: ${spring.application.name}-flow-rules	
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; groupId: SENTINEL_GROUP	
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; # 规则类型，取值见：	
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; # org.springframework.cloud.alibaba.sentinel.datasource.RuleType	
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; rule-type: flow	
-&nbsp; &nbsp; &nbsp; &nbsp; degrade:	
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; nacos:	
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; server-addr: ${nacos-namespace}
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dataId: ${spring.application.name}-degrade-rules	
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; groupId: SENTINEL_GROUP	
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; rule-type: degrade	
-&nbsp; &nbsp; &nbsp; &nbsp; system:	
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; nacos:	
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; server-addr: ${nacos-namespace}
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dataId: ${spring.application.name}-system-rules	
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; groupId: SENTINEL_GROUP	
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; rule-type: system	
-&nbsp; &nbsp; &nbsp; &nbsp; authority:	
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; nacos:	
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; server-addr: localhost:8848	
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dataId: ${spring.application.name}-authority-rules	
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; groupId: SENTINEL_GROUP	
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; rule-type: authority	
-&nbsp; &nbsp; &nbsp; &nbsp; param-flow:	
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; nacos:	
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; server-addr: localhost:8848	
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dataId: ${spring.application.name}-param-flow-rules	
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; groupId: SENTINEL_GROUP	
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; rule-type: param-flow
+</pre><h2>2.yaml配置</h2><p>nacos添加如下通用配置</p><pre class="ql-syntax" spellcheck="false">spring:
+  cloud:
+    sentinel:
+      datasource:
+        degrade: #熔断降级
+          nacos:
+            namespace: ${nacos-namespace}
+            server-addr: ${nacos-addr}
+            data-id: ${spring.application.name}-degrade-rules
+            rule-type: degrade
+            group-id: SENTINEL
+        flow: #限流
+          nacos:
+            namespace: ${nacos-namespace}
+            server-addr: ${nacos-addr}
+            data-id: ${spring.application.name}-flow-rules
+            rule-type: flow
+            group-id: SENTINEL
+        system: #系统保护，整体流量控制
+          nacos:
+            namespace: ${nacos-namespace}
+            server-addr: ${nacos-addr}
+            data-id: ${spring.application.name}-system-rules
+            rule-type: system
+            group-id: SENTINEL
+        authority: #来源访问控制
+          nacos:
+            namespace: ${nacos-namespace}
+            server-addr: ${nacos-addr}
+            data-id: ${spring.application.name}-authority-rules
+            rule-type: authority
+            group-id: SENTINEL
+        param-flow: #热点参数控制
+          nacos:
+            namespace: ${nacos-namespace}
+            server-addr: ${nacos-addr}
+            data-id: ${spring.application.name}-param-flow-rules
+            rule-type: param-flow
+            group-id: SENTINEL
+      transport:
+        dashboard: localhost:7021
+      enabled: true
 </pre><p><br></p>
