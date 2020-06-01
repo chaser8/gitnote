@@ -1,1 +1,11 @@
-<attachment contenteditable="false" data-atts="%5B%5D" data-aid=".atts-6457c446-da86-4da0-870f-0389b3b0c378"></attachment><p><br></p>
+<attachment contenteditable="false" data-atts="%5B%5D" data-aid=".atts-6457c446-da86-4da0-870f-0389b3b0c378"></attachment><p><span style="color: rgb(77, 77, 77);">统计库大小</span></p><pre class="ql-syntax" spellcheck="false">select TABLE_SCHEMA, concat(truncate(sum(data_length)/1024/1024,2),' MB') as data_size,
+concat(truncate(sum(index_length)/1024/1024,2),'MB') as index_size
+from information_schema.tables
+group by TABLE_SCHEMA
+order by data_length desc;
+</pre><p><span style="color: rgb(77, 77, 77);">统计表大小</span></p><pre class="ql-syntax" spellcheck="false">select TABLE_NAME, concat(truncate(data_length/1024/1024,2),' MB') as data_size,
+concat(truncate(index_length/1024/1024,2),'MB') as index_size
+from information_schema.tables where TABLE_SCHEMA = 'access_log'
+group by TABLE_NAME
+order by data_length desc;
+</pre><p><br></p>
