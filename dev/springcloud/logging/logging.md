@@ -33,5 +33,6 @@ logging:
 ```
 ==其他配置同springboot默认配置==
 
-### 4. 运行效果
+### 4. 运行效果![1.png](0)
 
+![test](https://yangzb-res.oss-cn-beijing.aliyuncs.com/tydic/1592465280269.1592465280384.png)
